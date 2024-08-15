@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a3156db1-6c17-40be-b3a1-00b85ade13e5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/BookServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/BookServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/UserServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +51,10 @@
     "JUnit.BookServiceTest.executor": "Run",
     "JUnit.BookServiceTest.testAddBookReview_ThrowsException.executor": "Debug",
     "JUnit.UserServiceTest.executor": "Run",
+    "JUnit.UserServiceTest.testLoginUser_NullUsernameOrPassword.executor": "Run",
+    "JUnit.UserServiceTest.testRegisterUser_NullUser.executor": "Run",
+    "JUnit.UserServiceTest.testUpdateUserProfile_EmptyNewUsername.executor": "Run",
+    "JUnit.UserServiceTest.testUpdateUserProfile_NullUser.executor": "Run",
     "JUnit.UserServiceTest.testUpdateUserProfile_ThrowsException.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
@@ -65,7 +69,7 @@
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="BookServiceTest$AddBookTests.testAddBook_Fail_Duplicate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserServiceTest$RegisterUserTests.testRegisterUser_EmptyUsername" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JunitProject" />
       <extension name="coverage">
         <pattern>
@@ -73,15 +77,15 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.example.BookServiceTest" />
-      <option name="MAIN_CLASS_NAME" value="org.example.BookServiceTest$AddBookTests" />
-      <option name="METHOD_NAME" value="testAddBook_Fail_Duplicate" />
+      <option name="PACKAGE_NAME" value="org.example.UserServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="org.example.UserServiceTest$RegisterUserTests" />
+      <option name="METHOD_NAME" value="testRegisterUser_EmptyUsername" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest.testUpdateUserProfile_ThrowsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserServiceTest.testLoginUser_NullUsernameOrPassword" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JunitProject" />
       <extension name="coverage">
         <pattern>
@@ -91,7 +95,55 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.example" />
       <option name="MAIN_CLASS_NAME" value="org.example.UserServiceTest" />
-      <option name="METHOD_NAME" value="testUpdateUserProfile_ThrowsException" />
+      <option name="METHOD_NAME" value="testLoginUser_NullUsernameOrPassword" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceTest.testRegisterUser_NullUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JunitProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.UserServiceTest" />
+      <option name="METHOD_NAME" value="testRegisterUser_NullUser" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceTest.testUpdateUserProfile_EmptyNewUsername" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JunitProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.UserServiceTest" />
+      <option name="METHOD_NAME" value="testUpdateUserProfile_EmptyNewUsername" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceTest.testUpdateUserProfile_NullUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JunitProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.UserServiceTest" />
+      <option name="METHOD_NAME" value="testUpdateUserProfile_NullUser" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -110,8 +162,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BookServiceTest$AddBookTests.testAddBook_Fail_Duplicate" />
-        <item itemvalue="JUnit.UserServiceTest.testUpdateUserProfile_ThrowsException" />
+        <item itemvalue="JUnit.UserServiceTest$RegisterUserTests.testRegisterUser_EmptyUsername" />
+        <item itemvalue="JUnit.UserServiceTest.testUpdateUserProfile_EmptyNewUsername" />
+        <item itemvalue="JUnit.UserServiceTest.testUpdateUserProfile_NullUser" />
+        <item itemvalue="JUnit.UserServiceTest.testRegisterUser_NullUser" />
+        <item itemvalue="JUnit.UserServiceTest.testLoginUser_NullUsernameOrPassword" />
       </list>
     </recent_temporary>
   </component>
@@ -133,11 +188,22 @@
       <updated>1723731961534</updated>
       <workItem from="1723731963187" duration="608000" />
       <workItem from="1723735031916" duration="5362000" />
-      <workItem from="1723752409959" duration="1663000" />
+      <workItem from="1723752409959" duration="3494000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

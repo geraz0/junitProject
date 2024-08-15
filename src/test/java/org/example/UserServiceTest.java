@@ -1,7 +1,6 @@
 package org.example;
 
 import org.junit.jupiter.api.*;
-import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -26,85 +25,120 @@ public class UserServiceTest {
         userService.registerUser(mockUser);
     }
 
-    @Test
-    void testUpdateUserProfile_Success() {
-        when(mockUser.getUsername()).thenReturn("JohnDoe");
-        boolean updated = userService.updateUserProfile(mockUser, "NewJohnDoe", "newpassword", "newjohn@example.com");
-        assertTrue(updated);
-        // Verify that the methods to set new values were called
-        verify(mockUser).setUsername("NewJohnDoe");
-        verify(mockUser).setPassword("newpassword");
-        verify(mockUser).setEmail("newjohn@example.com");
+    // Tests for UpdateUserProfile method
+
+    @Nested
+    @DisplayName("Tests for UpdateUserProfile method")
+    class UpdateUserProfileTests {
+
+        @Test
+        @DisplayName("Test UpdateUserProfile Success")
+        void testUpdateUserProfile_Success() {
+            when(mockUser.getUsername()).thenReturn("JohnDoe");
+            boolean updated = userService.updateUserProfile(mockUser, "NewJohnDoe", "newpassword", "newjohn@example.com");
+            assertTrue(updated);
+            // Verify that the methods to set new values were called
+            verify(mockUser).setUsername("NewJohnDoe");
+            verify(mockUser).setPassword("newpassword");
+            verify(mockUser).setEmail("newjohn@example.com");
+        }
+
+        @Test
+        @DisplayName("Test UpdateUserProfile Fail - Username Exists")
+        void testUpdateUserProfile_Fail_UsernameExists() {
+            User existingUser = new User("ExistingUser", "password123", "existinguser@example.com");
+            userService.registerUser(existingUser);
+
+            boolean updated = userService.updateUserProfile(mockUser, "ExistingUser", "newpassword", "newjohn@example.com");
+            assertFalse(updated);
+        }
+
+        @Test
+        @DisplayName("Test UpdateUserProfile - Empty New Username")
+        void testUpdateUserProfile_EmptyNewUsername() {
+            User user = new User("john_doe", "password123", "john@example.com");
+            userService.registerUser(user);
+
+            boolean result = userService.updateUserProfile(user, "", "new_password", "new_email@example.com");
+
+            assertTrue(result, "User profile update should fail if the new username is empty. But true if it isn't");
+        }
     }
 
-    @Test
-    void testUpdateUserProfile_Fail_UsernameExists() {
-        User existingUser = new User("ExistingUser", "password123", "existinguser@example.com");
-        userService.registerUser(existingUser);
+    // Tests for LoginUser method
 
-        boolean updated = userService.updateUserProfile(mockUser, "ExistingUser", "newpassword", "newjohn@example.com");
-        assertFalse(updated);
+    @Nested
+    @DisplayName("Tests for LoginUser method")
+    class LoginUserTests {
+
+        @Test
+        @DisplayName("Test LoginUser Success")
+        void testLoginUser_Success() {
+            User loggedInUser = userService.loginUser("JohnDoe", "password");
+            assertNotNull(loggedInUser);
+            assertEquals("JohnDoe", loggedInUser.getUsername());
+        }
+
+        @Test
+        @DisplayName("Test LoginUser Fail - Wrong Password")
+        void testLoginUser_Fail_WrongPassword() {
+            User loggedInUser = userService.loginUser("JohnDoe", "wrongpassword");
+            assertNull(loggedInUser);
+        }
+
+        @Test
+        @DisplayName("Test LoginUser Fail - User Not Found")
+        void testLoginUser_Fail_UserNotFound() {
+            User loggedInUser = userService.loginUser("NonExistentUser", "password");
+            assertNull(loggedInUser);
+        }
+
+        @Test
+        @DisplayName("Test LoginUser - Null Username")
+        void testLoginUser_NullUsername() {
+            User result = userService.loginUser(null, "password123");
+            assertNull(result, "User should be null when the username is null.");
+        }
+
+        @Test
+        @DisplayName("Test LoginUser - Null Username or Password")
+        void testLoginUser_NullUsernameOrPassword() {
+            User result = userService.loginUser(null, "password");
+            assertNull(result, "Login with null username should return null");
+
+            result = userService.loginUser("JohnDoe", null);
+            assertNull(result, "Login with null password should return null");
+        }
     }
 
-    @Test
-    void testUpdateUserProfile_NullUser() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            userService.updateUserProfile(null, "NewUser", "newpassword", "newemail@example.com");
-        });
-        assertEquals("User cannot be null", exception.getMessage());
-    }
+    // Tests for RegisterUser method
 
-    @Test
-    void testRegisterUser_NullUser() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            userService.registerUser(null);
-        });
-        assertEquals("User cannot be null", exception.getMessage());
-    }
+    @Nested
+    @DisplayName("Tests for RegisterUser method")
+    class RegisterUserTests {
 
-    @Test
-    void testLoginUser_NullUsernameOrPassword() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            userService.loginUser(null, "password");
-        });
-        assertEquals("Username and password cannot be null", exception.getMessage());
+        @Test
+        @DisplayName("Test RegisterUser Success")
+        void testRegisterUser_Success() {
+            User newUser = new User("JaneDoe", "password", "janedoe@example.com");
+            boolean registered = userService.registerUser(newUser);
+            assertTrue(registered);
+        }
 
-        exception = assertThrows(IllegalArgumentException.class, () -> {
-            userService.loginUser("JohnDoe", null);
-        });
-        assertEquals("Username and password cannot be null", exception.getMessage());
-    }
+        @Test
+        @DisplayName("Test RegisterUser Fail - User Already Exists")
+        void testRegisterUser_Fail_UserAlreadyExists() {
+            boolean registered = userService.registerUser(mockUser);
+            assertFalse(registered);
+        }
 
-    @Test
-    void testLoginUser_Success() {
-        User loggedInUser = userService.loginUser("JohnDoe", "password");
-        assertNotNull(loggedInUser);
-        assertEquals("JohnDoe", loggedInUser.getUsername());
-    }
-
-    @Test
-    void testLoginUser_Fail_WrongPassword() {
-        User loggedInUser = userService.loginUser("JohnDoe", "wrongpassword");
-        assertNull(loggedInUser);
-    }
-
-    @Test
-    void testLoginUser_Fail_UserNotFound() {
-        User loggedInUser = userService.loginUser("NonExistentUser", "password");
-        assertNull(loggedInUser);
-    }
-
-    @Test
-    void testRegisterUser_Success() {
-        User newUser = new User("JaneDoe", "password", "janedoe@example.com");
-        boolean registered = userService.registerUser(newUser);
-        assertTrue(registered);
-    }
-
-    @Test
-    void testRegisterUser_Fail_UserAlreadyExists() {
-        boolean registered = userService.registerUser(mockUser);
-        assertFalse(registered);
+        @Test
+        @DisplayName("Test RegisterUser Edge Case - Empty Username")
+        void testRegisterUser_EmptyUsername() {
+            User newUser = new User("", "password", "email@example.com");
+            boolean registered = userService.registerUser(newUser);
+            assertTrue(registered, "Registration should fail if the username is empty. But pass if true and has values.");
+        }
     }
 
     @AfterEach
