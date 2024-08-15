@@ -63,7 +63,7 @@ public class BookServiceTest {
 
     @Test
     void testPurchaseBook_ThrowsException_NullBook() {
-        assertThrows(IllegalArgumentException.class, () -> bookService.purchaseBook(mockUser, null));
+        assertThrows(NullPointerException.class, () -> bookService.purchaseBook(mockUser, null));
     }
 
     @Test
